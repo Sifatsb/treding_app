@@ -1,41 +1,54 @@
 // ignore_for_file: use_build_context_synchronously
 
-
 import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'app_colors.dart';
 
 class AppWidgets {
-
-
   ///for button
-  button(BuildContext context, {text, press, height, width, top, left, right, bottom, color, radius, style}){
+  button(BuildContext context,
+      {text,
+      press,
+      height,
+      width,
+      top,
+      left,
+      right,
+      bottom,
+      color,
+      radius,
+      style}) {
     return Center(
       child: Container(
         width: width,
         height: height,
-        margin: EdgeInsets.only(top: top ?? 0, left: left ?? 0, right: right ?? 0, bottom: bottom ?? 0),
+        margin: EdgeInsets.only(
+            top: top ?? 0,
+            left: left ?? 0,
+            right: right ?? 0,
+            bottom: bottom ?? 0),
         child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.only(top: 5,bottom: 5), backgroundColor: color ?? const Color(0xff0ce0ff),
+                padding: const EdgeInsets.only(top: 5, bottom: 5),
+                backgroundColor: color ?? const Color(0xff0ce0ff),
                 elevation: 0,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius ?? 5))
-            ),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(radius ?? 5))),
             onPressed: press,
-            child: Text(text,
+            child: Text(
+              text,
               style: style ?? AppStyle.title1,
-            )
-        ),
+            )),
       ),
     );
   }
 
-
   ///for Icon Button
-  iconButton(BuildContext context, {icon, press, size}){
+  iconButton(BuildContext context, {icon, press, size}) {
     return GestureDetector(
       onTap: press,
       child: Container(
@@ -51,13 +64,12 @@ class AppWidgets {
                     spreadRadius: 1.5,
                     offset: const Offset(0, 2.0))
               ]),
-          child: icon
-      ),
+          child: icon),
     );
   }
 
   ///Divider
-  customDivider(BuildContext context, {height, width}){
+  customDivider(BuildContext context, {height, width}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -70,7 +82,7 @@ class AppWidgets {
             thickness: 0.5,
           ),
         ),
-        const Text("or"),
+        Text("or", style: GoogleFonts.poppins(textStyle: TextStyle(fontSize: 15)),),
         SizedBox(
           width: width,
           height: height,
@@ -83,73 +95,70 @@ class AppWidgets {
     );
   }
 
-  ///for input field
-  inputField(BuildContext context, {controller, hintText, keyboardType, icon, autofillHints, obscureText, suffixIcon, readOnly, maxLine}){
-    return Padding(
-      padding: const EdgeInsets.only(top: 10, bottom: 15, left: 25, right: 25),
-      child: Container(
-          padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 1),
-          height: 60,
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(AppSize.borderRadiusSize),
-              boxShadow: const [
-                BoxShadow(
-                  color: Colors.black12,
-                  offset: Offset(1, 1),
-                  blurRadius: 10,
+  //Google Button
+  facebookButton(BuildContext context) {
+    var h = MediaQuery.of(context).size.height;
+    var w = MediaQuery.of(context).size.width;
+    Center(
+      child: SizedBox(
+          height: h * 0.05,
+          width: w * 0.8,
+          child: ElevatedButton(
+            onPressed: () {
+              AppWidgets().successSnackBar(context, "Login With facebook");
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.grey.shade300,
+            ),
+            child: Row(
+              children: [
+                Image.asset(
+                  "assets/images/fb.png",
+                  height: 30,
+                  width: 30,
                 ),
-                BoxShadow(
-                  color: Colors.transparent,
-                  offset: Offset(-1, -1),
-                  blurRadius: 10,
-                )
-              ]),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              //for search
-              Row(
-                children: [
-                  Container(
-                      padding: const EdgeInsets.all(8),
-                      margin: const EdgeInsets.only(right: 10, bottom: 8),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.grey.withOpacity(.35),
-                                blurRadius: 2,
-                                spreadRadius: 1.5,
-                                offset: const Offset(0, 2.0))
-                          ]),
-                      child: icon
+                SizedBox(width: w * 0.04),
+                Text(
+                  'Continue with Facebook',
+                  style: GoogleFonts.poppins(
+                    textStyle: TextStyle(color: Colors.black, fontSize: 15),
                   ),
-
-                  Expanded(
-                    child: TextField(
-                      controller: controller,
-                      keyboardType: keyboardType,
-                      obscureText: obscureText ?? false,
-                      autofillHints: [autofillHints],
-                      readOnly: readOnly ?? false,
-                      textInputAction: TextInputAction.done,
-                      maxLines: maxLine ?? 1,
-                      style: const TextStyle(fontSize: 17, letterSpacing: 1),
-                      decoration: InputDecoration(
-                          hintText: hintText,
-                          isCollapsed: true,
-                          enabledBorder: InputBorder.none,
-                          focusedBorder: InputBorder.none,
-                          suffixIcon: suffixIcon,
-                          contentPadding: const EdgeInsets.only(top: 8, bottom: 18, left: 10)),
-                    ),
-                  ),
-                ],
-              ),
-            ],
+                ),
+              ],
+            ),
           )),
+    );
+  }
+
+  ///for input field
+  inputField(BuildContext context,
+      {press,controller,
+      hintText,
+      keyboardType,
+      icon,
+      obscureText,
+      suffixIcon,
+      readOnly,
+      maxLine}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 25),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.grey[200],
+          border: Border.all(color: Colors.white),
+          borderRadius: BorderRadius.circular(7),
+        ),
+        child: Padding(
+          padding: EdgeInsets.only(left: 20),
+          child: TextField(
+            controller: controller,
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              hintText: hintText,
+            ),
+          ),
+        ),
+      ),
     );
   }
 
@@ -158,10 +167,12 @@ class AppWidgets {
     {'name': 'ENGLISH', 'locale': const Locale('en', 'US')},
     {'name': 'বাংলা', 'locale': const Locale('bn', 'BN')},
   ];
+
   updateLanguage(Locale locale) {
     Get.back();
     Get.updateLocale(locale);
   }
+
   changeLanguageAlertDialog(BuildContext context) {
     AlertDialog alert = AlertDialog(
       title: Text('chose_language'.tr),
@@ -174,12 +185,11 @@ class AppWidgets {
                   padding: const EdgeInsets.all(8.0),
                   child: GestureDetector(
                     child: Text(locale[index]['name']),
-                    onTap: (){
+                    onTap: () {
                       updateLanguage(locale[index]['locale']);
-                      if(locale[index]['name'] == 'ENGLISH'){
+                      if (locale[index]['name'] == 'ENGLISH') {
                         // loginController.language.value = 'false';
-                      }
-                      else{
+                      } else {
                         // loginController.language.value = 'true';
                       }
                     },
@@ -201,6 +211,7 @@ class AppWidgets {
       },
     );
   }
+
   ///Second App bar
   // secondAppBar(BuildContext context, controller, title){
   //   return AppBar(
@@ -285,23 +296,27 @@ class AppWidgets {
   // }
 
   ///for drawer items
-  drawerItems({IconData? icon,String? title, onTap}){
+  drawerItems({IconData? icon, String? title, onTap}) {
     return GestureDetector(
       onTap: onTap,
       child: ListTile(
         leading: CircleAvatar(
           backgroundColor: AppColors.primaryColor,
-          child: Icon(icon!, color: AppColors.backgroundColor,),
+          child: Icon(
+            icon!,
+            color: AppColors.backgroundColor,
+          ),
         ),
-        title: Text(title!,style: const TextStyle(
-            fontSize: 16
-        ),),
+        title: Text(
+          title!,
+          style: const TextStyle(fontSize: 16),
+        ),
       ),
     );
   }
 
   ///for snack bar
-  successSnackBar(BuildContext context, String exp){
+  successSnackBar(BuildContext context, String exp) {
     return ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: AppColors.primaryColor,
@@ -316,16 +331,14 @@ class AppWidgets {
   }
 
   ///for wrong snack bar
-  wrongSnackBar(BuildContext context, String exp){
+  wrongSnackBar(BuildContext context, String exp) {
     return ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: AppColors.redColor,
         content: Text(
           exp,
           style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.normal
-          ),
+              color: Colors.white, fontWeight: FontWeight.normal),
         ),
       ),
     );
@@ -333,73 +346,85 @@ class AppWidgets {
 
   ///show loader dialog
   showLoaderDialog(BuildContext context) {
-    AlertDialog alert=AlertDialog(
+    AlertDialog alert = AlertDialog(
       backgroundColor: Colors.transparent,
-      content:  Center(child: Lottie.asset('assets/images/circular_progress.json',height: 60)),
+      content: Center(
+          child:
+              Lottie.asset('assets/images/circular_progress.json', height: 60)),
     );
-    showDialog(barrierDismissible: false,
-      context:context,
-      builder:(BuildContext context){
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
         return alert;
       },
     );
   }
 
   ///for exit alert dialog
-  exitAlertDialog(BuildContext context){
+  exitAlertDialog(BuildContext context) {
     showDialog(
         context: context,
-        builder: (context)=> AlertDialog(
-          content: const Text.rich(
-            TextSpan(
-              children: [
-                TextSpan(text: 'Are you sure want to exit from '),
+        builder: (context) => AlertDialog(
+              content: const Text.rich(
                 TextSpan(
-                  text: 'On The Way Training?',
-                  style: TextStyle(
-                      fontWeight:
-                      FontWeight.bold,
-                      color: AppColors.primaryColor),
+                  children: [
+                    TextSpan(text: 'Are you sure want to exit from '),
+                    TextSpan(
+                      text: 'On The Way Training?',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.primaryColor),
+                    ),
+                  ],
                 ),
+              ),
+              actions: [
+                TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text(
+                      'NO',
+                      style: TextStyle(color: AppColors.primaryColor),
+                    )),
+                TextButton(
+                    onPressed: () => SystemNavigator.pop(),
+                    child: const Text(
+                      'Exit',
+                      style: TextStyle(color: AppColors.redColor),
+                    )),
               ],
-            ),
-          ),
-          actions: [
-            TextButton(
-                onPressed: ()=>Navigator.pop(context),
-                child: const Text('NO',style: TextStyle(color: AppColors.primaryColor),)
-            ),
-            TextButton(
-                onPressed: ()=>SystemNavigator.pop(),
-                child: const Text('Exit',style: TextStyle(color: AppColors.redColor),)
-            ),
-          ],
-        )
-    );
+            ));
   }
 
   ///Training Details Text
-  trainingDetails({title, text}){
+  trainingDetails({title, text}) {
     return Align(
         alignment: Alignment.topLeft,
         child: RichText(
           text: TextSpan(
             children: <TextSpan>[
-              TextSpan(text: '     $title: ', style: const TextStyle(color: AppColors.secondaryColor, fontSize: 26)),
-              TextSpan(text: '$text', style: const TextStyle(color: AppColors.primaryColor, fontSize: 26))
+              TextSpan(
+                  text: '     $title: ',
+                  style: const TextStyle(
+                      color: AppColors.secondaryColor, fontSize: 26)),
+              TextSpan(
+                  text: '$text',
+                  style: const TextStyle(
+                      color: AppColors.primaryColor, fontSize: 26))
             ],
           ),
           textScaleFactor: 0.5,
-        )
-    );
+        ));
   }
 
   ///No More Trainings are Available
-  noMoreTrainings(hasMore){
+  noMoreTrainings(hasMore) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 15),
       child: Center(
-        child: hasMore ? const CircularProgressIndicator() : const Text('No More Trainings are Available'),
+        child: hasMore
+            ? const CircularProgressIndicator()
+            : const Text('No More Trainings are Available'),
       ),
     );
   }

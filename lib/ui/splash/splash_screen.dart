@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:treding_app/configure/app_colors.dart';
 
 import '../auth/login.dart';
 import '../auth/registration.dart';
@@ -47,14 +48,7 @@ class AnimatedSplashScreenState extends State<AnimatedSplashScreen>
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.center,
-            colors: [
-              Color(0xffFF1C62),
-              Color(0xff040268),
-            ],
-          ),
+          color: AppColors.backgroundColor
         ),
         child: Stack(
           fit: StackFit.expand,
@@ -71,7 +65,7 @@ class AnimatedSplashScreenState extends State<AnimatedSplashScreen>
                         style: GoogleFonts.ubuntu(
                           fontSize: 15,
                           // fontWeight: FontWeight.w500,
-                          color: Colors.white,
+                          color: Colors.black,
                         ),
                         children: [
                           TextSpan(
@@ -96,13 +90,13 @@ class AnimatedSplashScreenState extends State<AnimatedSplashScreen>
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                  "assets/images/splash.jpg",
+                  "assets/images/splash.png",
                   height: animation.value * 250,
                   width: animation.value * 250,
                 ),
                 Text(
-                  "Welcome to Treding",
-                  style: GoogleFonts.ubuntu(
+                  "Welcome to Invest Bazar",
+                  style: GoogleFonts.poppins(
                     color: Colors.white,
                     fontSize: 22,
                     fontWeight: FontWeight.w500,
